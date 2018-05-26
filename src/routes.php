@@ -88,32 +88,6 @@ $app->post("/pesan/{makanan_id}", function (Request $request, Response $response
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
 
-//Rute DELETE /orders/1
-// $app->delete("/orders/{id}", function (Request $request, Response $response, $args){
-//     $id = $args["id"];
-//     $sql = "DELETE FROM orders WHERE order_id=:id";
-//     $stmt = $this->db->prepare($sql);
-    
-//     $data = [
-//         ":id" => $id
-//     ];
-
-//     if($stmt->execute($data))
-//        return $response->withJson(["status" => "success", "data" => "1"], 200);
-    
-//     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-// });
-
-
-// // membuat middleware
-// $cekAPIKey = function($request, $response, $next){
-//     // ini middleware untuk cek apikey
-// };
-
-// // menambahkan middleware ke route
-// $app->get('/orders', function ($request, $response) {
-//       // ...
-// })->add(cekAPIKey());
 
 $app->post("/pesan/", function (Request $request, Response $response){
 
@@ -142,10 +116,41 @@ $app->post("/pesan/", function (Request $request, Response $response){
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
 
-$app->get("/pesan/lihat", function (Request $request, Response $response){
+//melihat semua pesanan
+$app->get("/pesan/lihat/", function (Request $request, Response $response){
     $sql = "SELECT * FROM pesan";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
+
+
+//melihat pesanan berdasarkan email
+$app->get("/pesan/lihat/{email}", function (Request $request, Response $response, $args){
+    $email = $args["email"];
+    $sql = "SELECT * FROM pesan WHERE email= :email";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([":email" => $email]);
+    $result = $stmt->fetchAll();
+    return $response->withJson(["status" => "success", "data" => $result], 200);
+});
+
+
+//update status pesanan
+$app->put("/status/pesan/{id}", function (Request $request, Response $response, $args){
+    $id = $args["id"];
+    $ganti_status = $request->getParsedBody();
+    $sql = "UPDATE pesan SET status=:status WHERE id=:id";
+    $stmt = $this->db->prepare($sql);
+    
+    $data = [
+        ":id" => $id,
+        ":status" => $ganti_status["status"],
+    ];
+    if($stmt->execute($data))
+       return $response->withJson(["status" => "success", "data" => $data], 200);
+    
+    return $response->withJson(["status" => "failed", "data" => "0"], 200);
+});
+

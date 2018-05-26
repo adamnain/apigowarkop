@@ -24,5 +24,12 @@ return [
         'dbname' => 'gofood_kw',
         'driver' => 'mysql'
         ],
+        // 'db' => [
+        // 'host' => 'localhost',
+        // 'user' => 'id2860958_root',
+        // 'pass' => 'rahasia',
+        // 'dbname' => 'id2860958_gowarkop',
+        // 'driver' => 'mysql'
+        // ],
     ],
 ];
