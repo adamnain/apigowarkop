@@ -65,28 +65,53 @@ $app->post("/login/", function (Request $request, Response $response){
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
 
+//Rute POST /register
+$app->post("/register/", function (Request $request, Response $response){
+    $register = $request->getParsedBody();
 
-// //Rute POST /pesan/1
-$app->post("/pesan/{makanan_id}", function (Request $request, Response $response, $args){
-    $id = $args["makanan_id"];
-    $new_order = $request->getParsedBody();
-    //$sql ="SELECT * FROM makanan WHERE id=:id";
-    $sql = "INSERT INTO pesan (pelanggan_id, latit, longit,) VALUE (:pelanggan_id, :latit, :longit)";
+    $sql = "INSERT INTO pelanggan(nama, alamat, no_hp, email, password, api_key, hit) VALUES (:nama,:alamat, :no_hp,:email,:password, :api_key, :hit)";
     $stmt = $this->db->prepare($sql);
-    
+
     $data = [
-        //":id" => $id,
-        ":pelanggan_id" => $new_order["pelanggan_id"],
-        ":makanan_id" => $id,
-        ":latit" => $new_order["latit"],
-        ":longit" => $new_order["longit"]
+        ":nama" => $register["nama"],
+        ":alamat" => $register["alamat"],
+        ":no_hp" => $register["no_hp"],
+        ":email" => $register["email"],
+        ":password" => $register["password"],
+        ":api_key" => $register["api_key"],
+        ":hit" => $register["hit"]
+
     ];
+
 
     if($stmt->execute($data))
        return $response->withJson(["status" => "success", "data" => "1"], 200);
-    
+
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
+
+
+// //Rute POST /pesan/1
+// $app->post("/pesan/{makanan_id}", function (Request $request, Response $response, $args){
+//     $id = $args["makanan_id"];
+//     $new_order = $request->getParsedBody();
+//     //$sql ="SELECT * FROM makanan WHERE id=:id";
+//     $sql = "INSERT INTO pesan (pelanggan_id, latit, longit,) VALUE (:pelanggan_id, :latit, :longit)";
+//     $stmt = $this->db->prepare($sql);
+    
+//     $data = [
+//         //":id" => $id,
+//         ":pelanggan_id" => $new_order["pelanggan_id"],
+//         ":makanan_id" => $id,
+//         ":latit" => $new_order["latit"],
+//         ":longit" => $new_order["longit"]
+//     ];
+
+//     if($stmt->execute($data))
+//        return $response->withJson(["status" => "success", "data" => "1"], 200);
+    
+//     return $response->withJson(["status" => "failed", "data" => "0"], 200);
+// });
 
 
 $app->post("/pesan/", function (Request $request, Response $response){
