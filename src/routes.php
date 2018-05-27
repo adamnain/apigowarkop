@@ -93,7 +93,7 @@ $app->post("/pesan/", function (Request $request, Response $response){
 
     $new_pesan = $request->getParsedBody();
 
-    $sql = "INSERT INTO pesan(`nama`, `no_hp`, `email`, `latit`, `longit`, `nama_menu`, `gambar`, `jumlah`, `total_harga`, `status`) VALUES (:nama,:no_hp, :email,:latit,:longit, :nama_menu, :gambar, :jumlah, :total_harga, :status)";
+    $sql = "INSERT INTO pesan(nama, no_hp, email, latit, longit, nama_menu, gambar, jumlah, total_harga, status) VALUES (:nama,:no_hp, :email,:latit,:longit, :nama_menu, :gambar, :jumlah, :total_harga, :status)";
     $stmt = $this->db->prepare($sql);
 
     $data = [
