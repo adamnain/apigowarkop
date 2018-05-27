@@ -71,7 +71,7 @@ $app->post("/pesan/{makanan_id}", function (Request $request, Response $response
     $id = $args["makanan_id"];
     $new_order = $request->getParsedBody();
     //$sql ="SELECT * FROM makanan WHERE id=:id";
-    $sql = "INSERT INTO pesan (pelanggan_id, latit, longit,) VALUE (:pelanggan_id, :latit, :longit)";
+    $sql = "INSERT INTO pesan (pelanggan_id, latit, longit,) VALUES (:pelanggan_id, :latit, :longit)";
     $stmt = $this->db->prepare($sql);
     
     $data = [
