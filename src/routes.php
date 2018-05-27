@@ -22,6 +22,16 @@ $app->get("/allmenu/", function (Request $request, Response $response){
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
 
+//search menu
+$app->get("/menu/search", function (Request $request, Response $response, $args){
+    $keyword = $request->getQueryParam("keyword");
+    $sql = "SELECT * FROM makanan WHERE nama LIKE '%$keyword%' OR kategori LIKE'%$keyword%'";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    return $response->withJson(["status" => "success", "data" => $result], 200);
+});
+
 //rute GET /menu/1
 $app->get("/menu/{id}", function (Request $request, Response $response, $args){
     $id = $args["id"];
@@ -33,14 +43,14 @@ $app->get("/menu/{id}", function (Request $request, Response $response, $args){
 });
 
 //rute Get /pesanan/search 
-$app->get("/menu/search/", function (Request $request, Response $response, $args){
-    $keyword = $request->getQueryParam("keyword");
-    $sql = "SELECT * FROM makanan WHERE nama LIKE '%$keyword%' OR harga LIKE '%$keyword%' OR kategori LIKE '%$keyword%'";
-    $stmt = $this->db->prepare($sql);
-    $stmt->execute([":id" => $id]);
-    $result = $stmt->fetchAll();
-    return $response->withJson(["status" => "success", "data" => $result], 200);
-});
+// $app->get("/menu/search/", function (Request $request, Response $response, $args){
+//     $keyword = $request->getQueryParam("keyword");
+//     $sql = "SELECT * FROM makanan WHERE nama LIKE '%$keyword%' OR harga LIKE '%$keyword%' OR kategori LIKE '%$keyword%'";
+//     $stmt = $this->db->prepare($sql);
+//     $stmt->execute([":id" => $id]);
+//     $result = $stmt->fetchAll();
+//     return $response->withJson(["status" => "success", "data" => $result], 200);
+// });
 
 //Rute POST /login
 $app->post("/login/", function (Request $request, Response $response){
@@ -80,7 +90,6 @@ $app->post("/register/", function (Request $request, Response $response){
         ":password" => $register["password"],
         ":api_key" => $register["api_key"],
         ":hit" => $register["hit"]
-
     ];
 
 
