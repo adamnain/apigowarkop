@@ -31,7 +31,7 @@ return [
         'pass' => '750e5562b6fa1011409ee45601a1d394467908c2397f900b3122f6e0fb7acfeb',
         'dbname' => 'd5uucr416nlqru',
         'port' => '5432',
-        'driver' => 'psql'
+        'driver' => 'pgsql'
 
         ],
 
