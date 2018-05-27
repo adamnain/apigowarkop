@@ -42,15 +42,6 @@ $app->get("/menu/{id}", function (Request $request, Response $response, $args){
     return $response->withJson(["status" => "success", "data" => $result], 200);
 });
 
-//rute Get /pesanan/search 
-// $app->get("/menu/search/", function (Request $request, Response $response, $args){
-//     $keyword = $request->getQueryParam("keyword");
-//     $sql = "SELECT * FROM makanan WHERE nama LIKE '%$keyword%' OR harga LIKE '%$keyword%' OR kategori LIKE '%$keyword%'";
-//     $stmt = $this->db->prepare($sql);
-//     $stmt->execute([":id" => $id]);
-//     $result = $stmt->fetchAll();
-//     return $response->withJson(["status" => "success", "data" => $result], 200);
-// });
 
 //Rute POST /login
 $app->post("/login/", function (Request $request, Response $response){
@@ -99,28 +90,6 @@ $app->post("/register/", function (Request $request, Response $response){
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
 
-
-// //Rute POST /pesan/1
-// $app->post("/pesan/{makanan_id}", function (Request $request, Response $response, $args){
-//     $id = $args["makanan_id"];
-//     $new_order = $request->getParsedBody();
-//     //$sql ="SELECT * FROM makanan WHERE id=:id";
-//     $sql = "INSERT INTO pesan (pelanggan_id, latit, longit,) VALUE (:pelanggan_id, :latit, :longit)";
-//     $stmt = $this->db->prepare($sql);
-    
-//     $data = [
-//         //":id" => $id,
-//         ":pelanggan_id" => $new_order["pelanggan_id"],
-//         ":makanan_id" => $id,
-//         ":latit" => $new_order["latit"],
-//         ":longit" => $new_order["longit"]
-//     ];
-
-//     if($stmt->execute($data))
-//        return $response->withJson(["status" => "success", "data" => "1"], 200);
-    
-//     return $response->withJson(["status" => "failed", "data" => "0"], 200);
-// });
 
 
 $app->post("/pesan/", function (Request $request, Response $response){
@@ -188,3 +157,18 @@ $app->put("/status/pesan/{id}", function (Request $request, Response $response, 
     return $response->withJson(["status" => "failed", "data" => "0"], 200);
 });
 
+//delete pesan by id
+$app->delete("/pesan/{id}", function (Request $request, Response $response, $args){
+    $id = $args["id"];
+    $sql = "DELETE FROM pesan WHERE id=:id";
+    $stmt = $this->db->prepare($sql);
+    
+    $data = [
+        ":id" => $id
+    ];
+
+    if($stmt->execute($data))
+       return $response->withJson(["status" => "success", "data" => "1"], 200);
+    
+    return $response->withJson(["status" => "failed", "data" => "0"], 200);
+});
