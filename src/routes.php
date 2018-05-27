@@ -117,7 +117,7 @@ $app->post("/pesan/", function (Request $request, Response $response){
 });
 
 //melihat semua pesanan
-$app->get("/pesan/lihat/", function (Request $request, Response $response){
+$app->get("/pesan/lihat", function (Request $request, Response $response){
     $sql = "SELECT * FROM pesan";
     $stmt = $this->db->prepare($sql);
     $stmt->execute();

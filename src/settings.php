@@ -17,13 +17,22 @@ return [
         ],
 
         // Database Settings
+        // 'db' => [
+        // 'host' => 'localhost',
+        // 'user' => 'root',
+        // 'pass' => 'rahasia',
+        // 'dbname' => 'gofood_kw',
+        // 'driver' => 'mysql'
+        // ],
+
         'db' => [
-        'host' => 'localhost',
-        'user' => 'root',
-        'pass' => 'rahasia',
-        'dbname' => 'gofood_kw',
-        'driver' => 'mysql'
+        'host' => 'ec2-54-204-39-46.compute-1.amazonaws.com',
+        'user' => 'apmvmykbxnmchr',
+        'pass' => '750e5562b6fa1011409ee45601a1d394467908c2397f900b3122f6e0fb7acfeb',
+        'dbname' => 'd5uucr416nlqru',
+        'port' => '5432'
         ],
+
         // 'db' => [
         // 'host' => 'localhost',
         // 'user' => 'id2860958_root',
@@ -31,5 +40,6 @@ return [
         // 'dbname' => 'id2860958_gowarkop',
         // 'driver' => 'mysql'
         // ],
+
     ],
 ];
